@@ -1,0 +1,29 @@
+# depslib dependency file v1.0
+1593607871 source:e:\gre word practice\main.cpp
+	<list>
+	<set>
+	<map>
+	<ctime>
+	<stack>
+	<queue>
+	<cmath>
+	<deque>
+	<limits>
+	<string>
+	<cctype>
+	<cstdio>
+	<vector>
+	<bitset>
+	<numeric>
+	<cassert>
+	<sstream>
+	<fstream>
+	<cstdlib>
+	<cstring>
+	<utility>
+	<complex>
+	<iomanip>
+	<iostream>
+	<iterator>
+	<algorithm>
+
