@@ -1,0 +1,52 @@
+start power shell as admin at bin
+.\cassandra.bat -f
+
+need python 2.7
+start another power shell as admin at bin
+.\cqlsh.bat
+
+CREATE TABLE sourav.large( 
+  id text, 
+  student_id int PRIMARY KEY,
+  name text,
+  age int,
+  cgpa text,
+  birthday text,
+  nationality text,
+  Status text,
+  Occupation text
+);
+
+CREATE TABLE sourav.test( 
+  id text PRIMARY KEY, 
+  name text,
+  regionNumber int,
+  sequence set<frozen<map<text,text>>>
+);
+DESCRIBE keyspaces;
+use sourav;
+drop table test;
+//import data
+COPY large (id,student_id,name,age,cgpa,birthday,nationality,status,occupation) FROM 'C:/Users/lenovo/Desktop/temp.csv' WITH DELIMITER=',' AND HEADER=TRUE;
+COPY test (id,name,regionNumber,sequence) FROM 'C:/Users/lenovo/Desktop/thesis/cassandra/out.csv' WITH DELIMITER=',' AND HEADER=TRUE AND MINBATCHSIZE=1 AND MAXBATCHSIZE=1 AND PAGESIZE=10;
+CAPTURE 'C:/Users/lenovo/Desktop/genome1.csv';
+insert into test(id,name,regionNumber,sequence) values
+('5effe134','human_genome',1,{{'id':'1'},{'nucleotides':'CGAACCT'}});
+
+COPY test (id,name,regionNumber,sequence) FROM 'C:/Users/lenovo/Desktop/thesis/cassandra/out.csv' WITH DELIMITER=',' AND HEADER=TRUE AND MINBATCHSIZE=1 AND MAXBATCHSIZE=1 AND PAGESIZE=10;
+
+
+
+dsbulk load -url out.csv -k dsbulkblog -t test
+dsbulk load -url out.csv -k sourav -t test -u cassandra -p cassandra
+ 
+ 
+//see execution time
+tracing on;
+
+//select in range
+SELECT * FROM large WHERE student_id >1000 AND student_id<1100 ALLOW FILTERING ;
+SELECT * FROM test WHERE id = '20';
+
+SELECT * FROM test WHERE name= ' human_genome'  AND regionNumber= 5 ALLOW FILTERING;
+SELECT * FROM test WHERE sequence CONTAINS  {'id':'5'}  AND regionNumber= 5 ALLOW FILTERING;

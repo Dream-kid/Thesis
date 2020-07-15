@@ -37,7 +37,7 @@ COPY test(id,name,regionNumber,sequence)
 TO 'C:/Users/lenovo/Desktop/genome1.csv' WITH HEADER = TRUE; 
 //see execution time
 tracing on;
-
+dsbulk load -url out.csv -k sourav -t test
 //select in range
 SELECT * FROM large WHERE student_id >1000 AND student_id<1100 ALLOW FILTERING ;
 SELECT * FROM test WHERE id = '20';
