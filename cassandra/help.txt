@@ -17,12 +17,18 @@ CREATE TABLE sourav.large(
   Occupation text
 );
 
+
 CREATE TABLE sourav.test( 
-  id text PRIMARY KEY, 
+  id text , 
   name text,
   regionNumber int,
-  sequence set<frozen<map<text,text>>>
-);
+  sequence set<frozen<map<text,text>>>,
+  PRIMARY KEY((id), regionNumber)
+) WITH CLUSTERING ORDER BY (regionNumber DESC)
+ AND caching = {'keys':'ALL', 'rows_per_partition':'10'};
+
+
+
 DESCRIBE keyspaces;
 use sourav;
 drop table test;
@@ -49,4 +55,9 @@ SELECT * FROM large WHERE student_id >1000 AND student_id<1100 ALLOW FILTERING ;
 SELECT * FROM test WHERE id = '20';
 
 SELECT * FROM test WHERE name= ' human_genome'  AND regionNumber= 5 ALLOW FILTERING;
+dsbulk unload -query "SELECT * FROM sourav.test WHERE sequence CONTAINS  {'id':'5'}  AND regionNumber= 5 ALLOW FILTERING"
+
 SELECT * FROM test WHERE sequence CONTAINS  {'id':'5'}  AND regionNumber= 5 ALLOW FILTERING;
+
+
+
