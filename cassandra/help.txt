@@ -4,6 +4,7 @@ start power shell as admin at bin
 need python 2.7
 start another power shell as admin at bin
 .\cqlsh.bat
+use cqlsh.py and ignore prev step
 
 CREATE TABLE sourav.large( 
   id text, 
