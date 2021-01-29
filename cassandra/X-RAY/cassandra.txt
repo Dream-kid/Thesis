@@ -1,0 +1,31 @@
+CREATE KEYSPACE sourav
+WITH replication = {'class':'SimpleStrategy', 'replication_factor' : 3};
+
+Create table Covid
+(
+id int,
+Name text,
+img list<blob>,
+Primary key(id)
+);
+
+insert into COVID(id,Name,img) values(3,'covid',[0x89, 0x50, 0x4E]);
+
+COPY Covid(id,Name,img) TO 'C:\Users\Sourav\Desktop\119\temp.csv' WITH DELIMITER=',' AND HEADER=TRUE AND MINBATCHSIZE=1 AND MAXBATCHSIZE=1 AND PAGESIZE=10; //export
+
+COPY Covid(id,Name,img) FROM 'C:\Users\Sourav\Desktop\sourav\temp.csv' WITH DELIMITER=',' AND HEADER=TRUE AND MINBATCHSIZE=1 AND MAXBATCHSIZE=1 AND PAGESIZE=10;
+
+dsbulk load -url temp.csv -k sourav -t covid -u cassandra -p cassandra
+
+
+dsbulk unload -url out.csv -k sourav -t covid
+
+
+
+
+
+
+
+
+
+
