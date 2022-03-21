@@ -23,6 +23,7 @@ VALUES (1,'human_genome', 1);
 
 C:\xampp\mysql\bin
 open cmd type mysql
+if not work then type: mysql -u root -p
 load data local infile 'C:/Users/lenovo/Desktop/thesis/sql/out.csv' into table test.sequence FIELDS TERMINATED BY ',' ENCLOSED BY '"' LINES TERMINATED BY '\n';
 
 
